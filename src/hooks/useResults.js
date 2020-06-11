@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import yelp from "../api/yelp";
 import google from "../api/google";
+import googleKey from "../../apikey.js";
 
 export default () => {
   const [results, setResults] = useState([]);
@@ -9,33 +10,23 @@ export default () => {
   useEffect(() => {
     searchApi("pasta");
   }, []);
-
-  // const searchApi = async (searchTerm) => {
-  //   try {
-  //     const response = await yelp.get("/search", {
-  //       params: {
-  //         limit: 50,
-  //         term: searchTerm,
-  //         location: "Hilliard, OH",
-  //       },
-  //     });
-  //     setResults(response.data.businesses);
-  //   } catch {
-  //     setErrMessage("error received");
-  //   }
-  // };
   const searchApi = async (searchTerm) => {
     try {
       const response = await google.get(
-        "json?fields=name&query=indian near dublin,ca",
+        `json?fields=name&query=${searchTerm}&key=${googleKey.googleApiKey.key}`,
         {
           // params: {
           //   place_id: "ChIJw3GoaL3pj4ARzzZw",
           // },
         }
       );
-      setResults(response.data.results);
-      // console.log(response.data.results);
+
+      setResults(
+        response.data.results.filter(
+          (item) => item.rating > 4 && item.user_ratings_total > 85
+        )
+      );
+      console.log(response.data.results.length);
     } catch {
       setErrMessage("error received");
     }

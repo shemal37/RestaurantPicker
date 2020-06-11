@@ -10,12 +10,12 @@ const photo = async (ref) => {
 const ResultsDetail = ({ result }) => {
   return (
     <View style={styles.conatiner}>
-      <Image
+      {/* <Image
         style={styles.imageStyle}
         source={{
           uri: photo(result.photos[0].photo_reference),
         }}
-      />
+      /> */}
       <Text style={styles.nameStyle}>{result.name}</Text>
       <Text>
         {result.rating} Stars, {result.user_ratings_total} Reviews
