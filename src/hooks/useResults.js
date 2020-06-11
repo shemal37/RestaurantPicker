@@ -23,7 +23,7 @@ export default () => {
 
       setResults(
         response.data.results.filter(
-          (item) => item.rating > 4 && item.user_ratings_total > 85
+          (item) => item.rating > 4 && item.user_ratings_total > 75
         )
       );
       console.log(response.data.results.length);
